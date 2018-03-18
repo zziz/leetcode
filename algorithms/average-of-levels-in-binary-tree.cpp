@@ -10,22 +10,22 @@
 class Solution {
 public:
     
-    vector<vector<int>> ret;
+    vector<vector<int>> bfsv;
     vector<double> result;
     
-    void buildVector(TreeNode *root, int depth){
+    void bfs(TreeNode *root, int depth){
         if(root == NULL) return;
-        if(ret.size() == depth)
-            ret.push_back(vector<int>());
+        if(bfsv.size() == depth)
+            bfsv.push_back(vector<int>());
     
-        ret[depth].push_back(root->val);
-        buildVector(root->left, depth + 1);
-        buildVector(root->right, depth + 1);
+        bfsv[depth].push_back(root->val);
+        bfs(root->left, depth + 1);
+        bfs(root->right, depth + 1);
     }
 
     vector<double> averageOfLevels(TreeNode *root) {
-        buildVector(root, 0);
-        for(auto& it : ret){
+        bfs(root, 0);
+        for(auto& it : bfsv){
             double average = 0;
             for(auto& j : it){
                 average += j;
